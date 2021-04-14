@@ -1,5 +1,6 @@
 export test_file=scirex_dataset/release_data/test.jsonl
-export test_output_folder=test_outputs/
+export test_output_folder=test_outputs
+
 
 echo "Predicting NER"
 python scirex/predictors/predict_ner.py \
@@ -39,6 +40,7 @@ python scirex/predictors/predict_salient_clusters_using_gold.py \
 $test_output_folder/cluster_predictions.jsonl \
 $test_file \
 $test_output_folder/salient_clusters_predictions_using_gold.jsonl
+
 
 echo "Predicting Relations End-to-End"
 python scirex/predictors/predict_n_ary_relations.py \

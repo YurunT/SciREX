@@ -203,12 +203,16 @@ class RelationExtractor(Model):
 
     @overrides
     def decode(self, output_dict: Dict[str, torch.Tensor]):
+        if "metadata" in output_dict.keys():
+            metadata = output_dict['metadata']
+        else:
+            metadata = []
         new_output_dict = {
             "linked_clusters" : [i for i, x in enumerate(output_dict.get("cluster_to_size_map", [])) if x > 0],
             "candidates": output_dict.get("relations_candidates_list", []),
             "gold": output_dict.get("relations_true_list", []),
             "scores": output_dict.get("relation_scores", np.array([])),
-            "metadata" : output_dict['metadata']
+            "metadata" : metadata
         }
 
         if len(new_output_dict["scores"]) > 0:
